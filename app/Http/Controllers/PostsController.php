@@ -19,15 +19,21 @@ class PostsController extends Controller
       //หน้าแรกบทความ
     public function index(Request $request)
     {
-
         if ($request->has('trashed')) {
             $posts = Post::onlyTrashed()->Paginate(10);
         } else {
-            $posts = Post::Paginate(10);
-        }
-
+            $posts = Post::paginate(5);
+            if ($request->ajax()) {
+                $view = view('post.data', compact('posts'))->render();
+                return response()->json(['html' => $view]);
+            }
             return view('post.index',compact('posts'));
+        }    
     }
+
+    
+
+
 
     //หน้าเพิ่มบทความ
     public function create(){
