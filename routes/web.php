@@ -14,12 +14,18 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\exportPDFController ;
 use App\Http\Controllers\LangController;
-
 use App\Http\Controllers\CustomerController; 
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
+
 Route::get('customers', [CustomerController::class, 'index'])->name('customers');
-
-
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
 //Frontend 
